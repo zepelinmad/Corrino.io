@@ -6,17 +6,23 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "vercel-build": "prisma generate && prisma migrate deploy && next build"
   },
   "dependencies": {
     "@clerk/clerk-sdk-node": "^4.13.11",
     "@clerk/nextjs": "^4.29.9",
+    "@prisma/client": "^5.11.0",
     "@vercel/postgres": "^0.7.2",
     "drizzle-orm": "^0.30.4",
     "next": "14.1.4",
     "pg": "^8.11.3",
+    "postgres": "^3.4.4",
+    "prisma": "^5.11.0",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "reflect-metadata": "^0.2.1",
+    "typeorm": "^0.3.20"
   },
   "devDependencies": {
     "@types/node": "^20",

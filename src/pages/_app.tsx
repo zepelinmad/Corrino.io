@@ -1,9 +1,6 @@
-// src/pages/_app.tsx
-import '../app/globals.css';
+import '../app/globals.css'
 import { ClerkProvider } from "@clerk/nextjs";
 import type { AppProps } from "next/app";
-import React from 'react';
-
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ClerkProvider {...pageProps}>
@@ -11,5 +8,4 @@ function MyApp({ Component, pageProps }: AppProps) {
     </ClerkProvider>
   );
 }
-
 export default MyApp;

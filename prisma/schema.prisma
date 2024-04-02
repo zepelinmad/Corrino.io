@@ -1,0 +1,49 @@
+generator client {
+  provider = "prisma-client-js"
+}
+ 
+datasource db {
+  provider = "postgresql"
+  // Uses connection pooling
+  url = env("POSTGRES_PRISMA_URL")
+  // Uses direct connection, ⚠️ make sure to keep this to `POSTGRES_URL_NON_POOLING`
+  // or you'll have dangling databases from migrations
+  directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+ 
+model User {
+  id        String      @id @default(uuid())
+  email     String      @unique
+  portfolio Portfolio?  // Optional relation to a Portfolio, signifying one-to-one relation
+}
+
+model Portfolio {
+  id           String       @id @default(uuid())
+  user         User         @relation(fields: [userId], references: [id])
+  userId       String       @unique // This field should be unique to ensure one-to-one relation
+  balance      Float
+  currency     String
+  transactions Transaction[]
+  cashFlows    CashFlow[]
+  // ... other fields
+}
+
+model Transaction {
+  id          String    @id @default(uuid())
+  portfolioId String
+  date        DateTime
+  ticker      String
+  price       Float
+  quantity    Int
+  commission  Float
+  portfolio   Portfolio @relation(fields: [portfolioId], references: [id])
+}
+
+model CashFlow {
+  id          String    @id @default(uuid())
+  portfolioId String
+  date        DateTime
+  amount      Float
+  type        String
+  portfolio   Portfolio @relation(fields: [portfolioId], references: [id])
+}
